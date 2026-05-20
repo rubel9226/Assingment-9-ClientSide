@@ -1,0 +1,68 @@
+import Footer from '@/Components/Shared/Footer';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import { IoMdStopwatch } from 'react-icons/io';
+import { IoLocationOutline } from 'react-icons/io5';
+
+const AppointMentsPage =async () => {
+    const res = await fetch('https://assingment-9-umber.vercel.app/doctors.json');
+    const allData = await res.json();
+
+    return (
+        <div>
+            <div className='mt-16 w-11/12 mx-auto py-12 max-w-7xl mx-auto'>
+                <div className='text-center'>
+                    <h2 className='text-3xl md:text-4xl font-bold'>All Appointments</h2>
+                    <p className='text-muted mt-2'>Built around your health and your time</p>
+                </div>
+
+                <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10'>
+                    {
+                        allData.map((doctor, index) => (
+                            <div key={index} className='rounded-xl bg-[#031e29] transform duration-500 hover:-translate-y-1 hover:scale-102 hover:shadow-2xl shadow-cyan-500/35'>
+                                <div className='rounded-t-2xl w-full aspect-[2] overflow-hidden'>
+                                    {console.log(doctor?.id)}
+                                    <Image 
+                                        width={1000}
+                                        height={1000}
+                                        src={doctor?.image}
+                                        alt='Doctor 1'
+                                        className='rounded-t-2xl w-full -mt-10'
+                                    />
+                                </div>
+                                <div className='p-5'>
+                                    <div>
+                                        <h2 className='text-lg font-bold'>{doctor?.name}</h2>
+                                        <p className='text-sm font-medium text-[#00c3c2]'>{doctor?.specialty}</p>
+                                    </div>
+
+                                    <p className='mt-2 line-clamp-2 text-sm text-muted'>{doctor?.description}</p>   
+
+                                    <div className='mt-2 text-muted'>
+                                        <span className='flex gap-1 items-center text-sm'><IoLocationOutline /> {doctor?.location} </span>
+                                        <span className='flex gap-1 items-center text-sm'><IoMdStopwatch /> {doctor?.experience} experience</span>
+                                    </div>
+                                    
+                                    <div className='border-t border-muted my-4' />
+
+                                    <div className='flex justify-between items-center'>
+                                        <div className=''>
+                                            <p className='text-xs text-muted'>Consultation</p>
+                                            <h4 className='text-lg text-[#00c3c2] font-bold '>৳{doctor?.fee}</h4>
+                                        </div>
+                                        <Link href={`details/${doctor?.id}`} className='bg-[#00C7C5] text-[12px] flex items-center gap-1.5 text-black font-medium px-3 h-8 rounded-xl ' >View Details</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+
+                </div>
+            </div>
+            <Footer />
+        </div>
+    );
+};
+
+export default AppointMentsPage;

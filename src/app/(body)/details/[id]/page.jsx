@@ -1,0 +1,110 @@
+import Image from "next/image";
+import BookingDoctor from "../Components/BookingDoctor";
+
+
+
+export default async function DoctorDetailsPage({params}) {
+  const res = await fetch('https://assingment-9-umber.vercel.app/doctors.json');
+  const allData = await res.json();
+  const {id} = await params;
+
+  const doctor = allData.find(data => data.id === id);
+  console.log(doctor)
+
+
+
+
+  
+
+  return (
+    <div className="min-h-screen bg-[#031e29] py-10 px-4 mt-20">
+       
+      <div className="max-w-6xl bg-[#082d3b] mx-auto rounded-3xl shadow-lg overflow-hidden">
+        {/* Top Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
+          {/* Image */}
+          <div className="w-full">
+            <div className="relative w-full aspect-[1/1] rounded-3xl overflow-hidden">
+              <Image
+                src={doctor.image}
+                alt={doctor.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Details */}
+          <div className="lg:col-span-2 flex flex-col justify-center">
+            <h1 className="text-4xl font-bold ">
+              {doctor.name}
+            </h1>
+
+            <p className="text-xl text-blue-600 font-semibold mt-2">
+              {doctor.specialty}
+            </p>
+
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-[#145972] p-4 rounded-2xl">
+                <h3 className="font-semibold ">Experience</h3>
+                <p className="text-white/70 text-sm">{doctor.experience}</p>
+              </div>
+
+              <div className="bg-[#145972] p-4 rounded-2xl">
+                <h3 className="font-semibold">Consultation Fee</h3>
+                <p className="text-white/70 text-sm">৳ {doctor.fee}</p>
+              </div>
+
+              <div className="bg-[#145972] p-4 rounded-2xl">
+                <h3 className="font-semibold">Hospital</h3>
+                <p className="text-white/70 text-sm">{doctor.hospital}</p>
+              </div>
+
+              <div className="bg-[#145972] p-4 rounded-2xl">
+                <h3 className="font-semibold">Location</h3>
+                <p className="text-white/70 text-sm">{doctor.location}</p>
+              </div>
+            </div>
+
+            {/* Availability */}
+            <div className="mt-6">
+              <h2 className="text-xl font-bold mb-3">
+                Available Time
+              </h2>
+
+              <div className="flex flex-wrap gap-3">
+                {doctor.availability.map((time, index) => (
+                  <span
+                    key={index}
+                    className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium"
+                  >
+                    {time}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Description */}
+            <div className="mt-6">
+              <h2 className="text-xl font-bold mb-2">
+                About Doctor
+              </h2>
+
+              <p className="text-muted leading-relaxed">
+                {doctor.description}
+              </p>
+            </div>
+
+            {/* Button */}
+            <div className="mt-8">
+
+              <BookingDoctor doctor={doctor} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  );
+}

@@ -37,10 +37,11 @@ export default function HeroSwiper() {
 
 
         
-        <SwiperSlide>
-          <div className="bg-[url(/hero1.jpg)] min-h-[89vh] bg-cover bg-center">
+        <SwiperSlide className=''>
+          <div className="bg-[url(/hero1.jpg)] min-h-[89vh] bg-cover bg-center ">
               {/* <div className='w-full min-h-[92.5vh] bg-[radial-gradient(circle,transparent,#111)] from-black/50'> */}
-                <div className='w-full min-h-[89vh] bg-radial-[at_75%_50%] from-cyan-400/40 to-black/90 to-100% flex flex-col justify-center px-6'>
+              <div className=' bg-radial-[at_75%_50%] from-cyan-400/40 to-black/90 to-100% '>
+                <div className='w-full min-h-[89vh] flex flex-col justify-center px-6 max-w-7xl mx-auto'>
 
                     <div className='flex'>
                         <p className='bg-white/15 w-auto text-[12px] px-3 py-1 rounded-full font-bold border border-white/50 flex gap-1 items-center'><MdOutlineVerifiedUser className='text-sm' /> VERIFIED HEALTHCARE</p>
@@ -55,7 +56,7 @@ export default function HeroSwiper() {
                         <Link className='bg-white/20 border flex items-center gap-1.5 border-white/30 font-semibold text-sm px-8 h-10 rounded-xl ' href='/dashboard'><FaRegCalendarCheck className='text-[16px]' /> My Bookings</Link>
                     </div>
 
-                    <div className='border-t border-white/50 mb-6 mt-10' />
+                    <div className='max-w-lg border-t border-white/30 mb-6 mt-10' />
 
                     <div className='max-w-lg flex justify-between'>
 
@@ -98,6 +99,7 @@ export default function HeroSwiper() {
 
                     </div>
                 </div>
+              </div>
             </div>
           
         </SwiperSlide>
@@ -107,7 +109,8 @@ export default function HeroSwiper() {
         <SwiperSlide>
           <div className="bg-[url(/hero2.jpg)] min-h-[89vh] bg-cover bg-center">
               {/* <div className='w-full min-h-[92.5vh] bg-[radial-gradient(circle,transparent,#111)] from-black/50'> */}
-                <div className='w-full min-h-[89vh] bg-radial-[at_75%_50%] from-cyan-400/40 to-black/90 to-100% flex flex-col justify-center px-6'>
+              <div className=' bg-radial-[at_75%_50%] from-cyan-400/40 to-black/90 to-100% '>
+                <div className='w-full min-h-[89vh]  flex flex-col justify-center px-6 max-w-7xl mx-auto'>
 
                     <div className='flex'>
                         <p className='bg-white/15 w-auto text-[12px] px-3 py-1 rounded-full font-bold border border-white/50 flex gap-1 items-center'><MdOutlineVerifiedUser className='text-sm' /> VERIFIED HEALTHCARE</p>
@@ -122,7 +125,7 @@ export default function HeroSwiper() {
                         <Link className='bg-white/20 border flex items-center gap-1.5 border-white/30 font-semibold text-sm px-8 h-10 rounded-xl ' href='/dashboard'><FaRegCalendarCheck className='text-[16px]' /> My Bookings</Link>
                     </div>
 
-                    <div className='border-t border-white/50 mb-6 mt-10' />
+                    <div className='max-w-lg border-t border-white/30 mb-6 mt-10' />
 
                     <div className='max-w-lg flex justify-between'>
 
@@ -165,6 +168,7 @@ export default function HeroSwiper() {
 
                     </div>
                 </div>
+              </div>
             </div>
 
         </SwiperSlide>
@@ -174,7 +178,8 @@ export default function HeroSwiper() {
         <SwiperSlide>
           <div className="bg-[url(/hero3.jpg)] min-h-[89vh] bg-cover bg-center">
               {/* <div className='w-full min-h-[92.5vh] bg-[radial-gradient(circle,transparent,#111)] from-black/50'> */}
-                <div className='w-full min-h-[89vh] bg-radial-[at_75%_50%] from-cyan-400/40 to-black/90 to-100% flex flex-col justify-center px-6'>
+              <div className=' bg-radial-[at_75%_50%] from-cyan-400/40 to-black/90 to-100% '>
+                <div className='w-full min-h-[89vh]  flex flex-col justify-center px-6 max-w-7xl mx-auto'>
 
                     <div className='flex'>
                         <p className='bg-white/15 w-auto text-[12px] px-3 py-1 rounded-full font-bold border border-white/50 flex gap-1 items-center'><MdOutlineVerifiedUser className='text-sm' /> VERIFIED HEALTHCARE</p>
@@ -189,7 +194,7 @@ export default function HeroSwiper() {
                         <Link className='bg-white/20 border flex items-center gap-1.5 border-white/30 font-semibold text-sm px-8 h-10 rounded-xl ' href='/dashboard'><FaRegCalendarCheck className='text-[16px]' /> My Bookings</Link>
                     </div>
 
-                    <div className='border-t border-white/50 mb-6 mt-10' />
+                    <div className='max-w-lg border-t border-white/30 mb-6 mt-10' />
 
                     <div className='max-w-lg flex justify-between'>
 
@@ -232,6 +237,7 @@ export default function HeroSwiper() {
 
                     </div>
                 </div>
+              </div>
             </div>
         </SwiperSlide>
 
