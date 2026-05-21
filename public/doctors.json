@@ -9,7 +9,8 @@
     "description": "Highly experienced cardiologist specializing in heart diseases, preventive care, and patient-centered treatment.",
     "hospital": "Labaid Cardiac Hospital",
     "location": "Dhanmondi, Dhaka",
-    "fee": 800
+    "fee": 800,
+    "rating": 4.8
   },
   {
     "id": "d2",
@@ -21,7 +22,8 @@
     "description": "Expert neurologist treating brain, spinal cord, and nervous system disorders.",
     "hospital": "Square Hospital",
     "location": "Panthapath, Dhaka",
-    "fee": 1000
+    "fee": 1000,
+    "rating": 4.9
   },
   {
     "id": "d3",
@@ -33,7 +35,8 @@
     "description": "Specialist in skin care, acne treatment, and cosmetic dermatology.",
     "hospital": "Popular Diagnostic Center",
     "location": "Uttara, Dhaka",
-    "fee": 700
+    "fee": 700,
+    "rating": 4.7
   },
   {
     "id": "d4",
@@ -45,7 +48,8 @@
     "description": "Experienced orthopedic surgeon focusing on bone and joint treatments.",
     "hospital": "United Hospital",
     "location": "Gulshan, Dhaka",
-    "fee": 1200
+    "fee": 1200,
+    "rating": 4.9
   },
   {
     "id": "d5",
@@ -57,7 +61,8 @@
     "description": "Dedicated gynecologist providing women’s healthcare and maternity support.",
     "hospital": "Ibn Sina Hospital",
     "location": "Mirpur, Dhaka",
-    "fee": 900
+    "fee": 900,
+    "rating": 4.8
   },
   {
     "id": "d6",
@@ -69,7 +74,8 @@
     "description": "Child specialist experienced in newborn and adolescent healthcare.",
     "hospital": "Apollo Hospital",
     "location": "Bashundhara, Dhaka",
-    "fee": 600
+    "fee": 600,
+    "rating": 4.6
   },
   {
     "id": "d7",
@@ -81,7 +87,8 @@
     "description": "Specialist in ear, nose, and throat diseases with advanced treatment methods.",
     "hospital": "Evercare Hospital",
     "location": "Banani, Dhaka",
-    "fee": 750
+    "fee": 750,
+    "rating": 4.7
   },
   {
     "id": "d8",
@@ -93,7 +100,8 @@
     "description": "Mental health expert providing therapy and psychiatric treatment.",
     "hospital": "Mind Care Clinic",
     "location": "Mohakhali, Dhaka",
-    "fee": 1100
+    "fee": 1100,
+    "rating": 4.8
   },
   {
     "id": "d9",
@@ -105,7 +113,8 @@
     "description": "Professional dentist specializing in cosmetic and restorative dentistry.",
     "hospital": "Dental Square",
     "location": "Farmgate, Dhaka",
-    "fee": 500
+    "fee": 500,
+    "rating": 4.5
   },
   {
     "id": "d10",
@@ -117,6 +126,7 @@
     "description": "Eye specialist experienced in cataract surgery and vision care.",
     "hospital": "National Eye Hospital",
     "location": "Shahbagh, Dhaka",
-    "fee": 850
+    "fee": 850,
+    "rating": 4.9
   }
 ]
