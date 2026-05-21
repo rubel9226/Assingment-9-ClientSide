@@ -3,15 +3,28 @@
 import { useState } from "react";
 import { Button } from "@heroui/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FaUserDoctor } from "react-icons/fa6";
+import { authClient } from "@/lib/auth-client";
+import { LuLogOut } from "react-icons/lu";
+import Image from 'next/image';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // demo state
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const router = useRouter()
 
+  const { data, error, isPending } = authClient.useSession();
 
+  const handleLogout =async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login"); // redirect to login page
+        },
+      },
+    });
+  }
 
   const btns = (
     <>
@@ -51,27 +64,32 @@ export default function Navbar() {
             ☰
           </button>
 
-          {/* Profile Image */}
-          {isLoggedIn && (
-            <div 
-              className="w-10 flex justify-center items-center font-bold bg-blue-400 text-white h-10 rounded-full object-cover border"
-            >
-              Md
-            </div>
-          )}
+          
 
           <div className='hidden md:block'>
-
-            {/* Login / Logout Button */}
-            {isLoggedIn ? (
-              <Button color="danger" onClick={() => setIsLoggedIn(false)}>
-                Logout
-              </Button>
-            ) : (
-              <Button color="primary" onClick={() => setIsLoggedIn(true)}>
-                Login
-              </Button>
-            )}
+            {
+              data 
+              ?<div className='flex items-center gap-2'>
+                <div className='w-10 bg-blue-400 aspect-squire rounded-full'>
+                  <Image
+                    width={32}
+                    height={32}
+                    src={data?.user?.image || '/user.png'}
+                    alt={data?.user?.name}
+                    className='min-w-8 aspect-squire rounded-full '
+                  />
+                  {
+                    
+                  }
+                </div>
+                <div onClick={handleLogout} className={`px-4 w-full h-9 py-2 rounded-xl border border-white/30 text-xs font-semibold text-center duration-100 bg-transparent hover:bg-white/15 flex gap-1 items-center cursor-pointer`}><LuLogOut /> Logout</div>
+              </div> 
+              :<div className='flex gap-2'>
+                <Link onClick={() => setOpen(false)} href={'/login'} className={`px-4 w-full h-9 py-2 rounded-xl border border-white/30 text-xs font-semibold text-center duration-100 bg-transparent hover:bg-white/15`}>Login</Link>
+                <Link onClick={() => setOpen(false)} href={'/register'} className={`px-4 w-full h-9 py-2 rounded-xl border border-white/30 text-xs font-medium text-center duration-100 bg-[#00C6C4] hover:bg-[#1b9795] text-black`}>Register</Link>
+              </div>
+            }
+            
           </div>
 
         </div>
@@ -82,7 +100,9 @@ export default function Navbar() {
         <div className="md:hidden border-t px-4 py-3 space-y-2 flex flex-col">
           {btns}
           <div className="flex gap-4">
-            <Link onClick={() => setOpen(false)} href={'/login'} className={`px-4 w-full h-9 py-2 rounded-xl border border-white/30 text-sm font-medium text-center duration-100 hover:bg-cyan-400/30`}>Login</Link>
+            <div>
+              
+            </div>
             <Link onClick={() => setOpen(false)} href={'/register'} className={`px-4 w-full h-9 py-2 rounded-xl border border-white/30 text-sm font-medium text-center duration-100 bg-[#00C6C4] hover:bg-[#1b9795] text-black`}>Register</Link>
           </div>
         </div>

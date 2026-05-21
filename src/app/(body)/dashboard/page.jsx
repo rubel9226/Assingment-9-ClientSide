@@ -9,7 +9,7 @@ const DashboardPage = () => {
     const [isProfile, setIsProfile] = useState(false)
 
     return (
-        <div>
+        <div className=' max-w-7xl mx-auto'>
             <div className='mt-16 px-4 py-12'>
                 <div className=''>
                     <h2 className='text-3xl md:text-4xl font-bold'>Dashboard</h2>

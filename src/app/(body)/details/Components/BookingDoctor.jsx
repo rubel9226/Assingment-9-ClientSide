@@ -1,9 +1,13 @@
 "use client";
+import api from "@/api/api";
 import { useState } from "react";
+import { authClient } from './../../../../lib/auth-client';
 
 const BookingDoctor = ({doctor}) => {
     const [openModal, setOpenModal] = useState(false);
-
+    const { data, error, isPending } = authClient.useSession();
+    
+    console.log(data?.user?.id, 'users');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,6 +24,11 @@ const BookingDoctor = ({doctor}) => {
         };
     
         console.log(bookingData);
+        try {
+            api.get(`booking/${data?.user?.id}`)
+        } catch (error) {
+            console.log(error);
+        }
     
         alert("Appointment Booked Successfully!");
         form.reset();
@@ -83,7 +92,7 @@ const BookingDoctor = ({doctor}) => {
                             </label>
 
                             <select name="time" required className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" >
-                                <option value="">Select Time</option>
+                                <option className="bg-black/70" value="">Select Time</option>
 
                                 {doctor.availability.map((time, index) => (
                                     <option key={index} value={time} className="bg-black/70">
