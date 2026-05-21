@@ -25,7 +25,7 @@ const MyBookings = () => {
         } catch (error) {
             console.log(error);
         } finally{
-            setLoading(true);
+            setLoading(false);
         }
     };
 
