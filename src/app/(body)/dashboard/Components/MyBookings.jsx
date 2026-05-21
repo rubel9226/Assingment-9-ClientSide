@@ -60,14 +60,14 @@ const MyBookings = () => {
             {
                 bookings.map((booking, index) => (
             <div key={index} className='rounded-2xl border border-white/20 bg-[#031E29] p-5'>
-                <p className='text-lg font-bold text-cyan-500'>Dr. Ayesha Rahman</p>
+                <p className='text-lg font-bold text-cyan-500'>{booking?.doctorName}</p>
                 <div className='mt-3 text-sm text-muted'>
-                    <div className='flex items-center gap-2'><PiPerson /> Patient: <span className='text-white'>Md Rubel Hossen</span> </div>
-                    <div className='flex items-center gap-2'><MdDateRange /> Date: <span className='text-white'>Md Rubel Hossen</span> </div>
-                    <div className='flex items-center gap-2'><TiMediaEject /> Time: <span className='text-white'>Md Rubel Hossen</span> </div>
+                    <div className='flex items-center gap-2'><PiPerson /> Patient: <span className='text-white'>{booking?.patientName}</span> </div>
+                    <div className='flex items-center gap-2'><MdDateRange /> Date: <span className='text-white'>{booking?.date}</span> </div>
+                    <div className='flex items-center gap-2'><TiMediaEject /> Time: <span className='text-white'>{booking?.time}</span> </div>
                 </div>
-                <p className='text-sm'>Reason: shash kosto</p>
-                <div className='flex gap-2 my-4'>
+                <p className={`text-sm mt-2 ${booking?.reason ? 'block' : 'hidden'}`}>Reason: {booking?.reason}</p>
+                <div className='flex gap-2 my-3'>
                     <div className='inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium text-xs px-3 h-8 bg-[#010F18]'><PiPenLight /> Update </div>
                     <div className='inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium text-xs px-3 h-8 bg-[#e63737]'><FcDeleteRow /> Delete </div>
                 </div>

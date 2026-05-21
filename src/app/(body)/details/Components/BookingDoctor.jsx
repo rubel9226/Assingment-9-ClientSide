@@ -2,14 +2,16 @@
 import api from "@/api/api";
 import { useState } from "react";
 import { authClient } from './../../../../lib/auth-client';
+import { toast } from "react-toastify";
 
 const BookingDoctor = ({doctor}) => {
     const [openModal, setOpenModal] = useState(false);
     const { data, error, isPending } = authClient.useSession();
+    const [loading, setLoading] = useState(false)
     
     console.log(data?.user?.id, 'users');
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
         e.preventDefault();
     
         const form = e.target;
@@ -25,14 +27,18 @@ const BookingDoctor = ({doctor}) => {
     
         console.log(bookingData);
         try {
-            api.get(`booking/${data?.user?.id}`)
+            setLoading(true);
+            await api.get(`booking/${data?.user?.id}`)
+            toast.success('Appoint book successfully!')
+            form.reset();
+            setOpenModal(false);
         } catch (error) {
             console.log(error);
+            toast.error('Error');
+        } finally {
+            setLoading(false);
         }
-    
-        alert("Appointment Booked Successfully!");
-        form.reset();
-        setOpenModal(false);
+        
     };
 
     return (
@@ -112,7 +118,7 @@ const BookingDoctor = ({doctor}) => {
  
                         <div className="md:col-span-2">
                             <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white py-4 rounded-2xl font-semibold cursor-pointer" >
-                                Confirm Booking
+                                {loading ? 'Loading...' : 'Confirm Booking'}
                             </button>
                         </div>
                         </form>

@@ -9,7 +9,6 @@ export default async function DoctorDetailsPage({params}) {
   const {id} = await params;
 
   const doctor = allData.find(data => data.id === id);
-  console.log(doctor)
 
 
 
