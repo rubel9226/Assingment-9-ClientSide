@@ -13,8 +13,8 @@ const DashboardPage = () => {
     
 
     return (
-        <div className=' max-w-7xl mx-auto'>
-            <div className='mt-16 px-4 py-12'>
+        <div className=''>
+            <div className='mt-16 px-4 py-12 max-w-7xl mx-auto'>
                 <div className=''>
                     <h2 className='text-3xl md:text-4xl font-bold'>Dashboard</h2>
                 </div>
