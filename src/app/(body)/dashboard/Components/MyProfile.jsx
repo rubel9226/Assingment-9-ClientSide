@@ -16,6 +16,7 @@ const MyProfile = () => {
                         height={72}
                         src={data?.user?.image || 'user.jpg'}
                         alt='User image'
+                        className=' w-18 aspect-square rounded-full'
                     />
                 </div>
                 <div>

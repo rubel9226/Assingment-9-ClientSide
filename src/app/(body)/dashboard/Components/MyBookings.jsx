@@ -9,11 +9,14 @@ import { MdDateRange, MdUpdate } from 'react-icons/md';
 import { TiMediaEject } from 'react-icons/ti';
 import { FcDeleteRow } from 'react-icons/fc';
 import Loading from '@/Components/Shared/Loading';
+import { toast } from 'react-toastify';
+import UpdateBooking from './UpdateBooking';
 
 const MyBookings = () => {
     const [bookings , setBookings] = useState([]);
     const [loading, setLoading] = useState(false);
     const { data, error, isPending } = authClient.useSession();
+    
     
     console.log(data?.user?.id, 'users');
 
@@ -23,7 +26,7 @@ const MyBookings = () => {
             const response = await api.get(`/bookings/${data?.user?.id}`);
             setBookings(response.data.payload);
         } catch (error) {
-            console.log(error);
+            console.log(error?.response?.data?.message);
         } finally{
             setLoading(false);
         }
@@ -35,7 +38,24 @@ const MyBookings = () => {
         }
     }, [data?.user?.id]);
 
-    console.log(bookings);
+    const handleDelete =async (booking) => {
+        if(confirm('You are sure, delete this booking')){
+            try {
+                setLoading(true);
+                await api.delete(`/booking/${booking?._id}`)
+                toast.success(`successfully delete booking. ${booking?._id}`)
+                // getBookings();
+                const newBooking = bookings.filter(item => item._id !== booking._id);
+                setBookings(newBooking);
+            } catch (error) {
+                console.log(error);
+            } finally{
+                setLoading(false);
+            }
+        }
+    }
+    
+    
 
 
     if(loading){
@@ -68,8 +88,8 @@ const MyBookings = () => {
                 </div>
                 <p className={`text-sm mt-2 ${booking?.reason ? 'block' : 'hidden'}`}>Reason: {booking?.reason}</p>
                 <div className='flex gap-2 my-3'>
-                    <div className='inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium text-xs px-3 h-8 bg-[#010F18]'><PiPenLight /> Update </div>
-                    <div className='inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium text-xs px-3 h-8 bg-[#e63737]'><FcDeleteRow /> Delete </div>
+                    <UpdateBooking booking={booking} getBookings={getBookings} />
+                    <div onClick={() => handleDelete(booking)} className='cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium text-xs px-3 h-8 bg-[#e63737]'><FcDeleteRow /> Delete </div>
                 </div>
             </div>))
             }

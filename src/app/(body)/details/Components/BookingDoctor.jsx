@@ -1,39 +1,70 @@
 "use client";
 import api from "@/api/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { authClient } from './../../../../lib/auth-client';
 import { toast } from "react-toastify";
 
 const BookingDoctor = ({doctor}) => {
     const [openModal, setOpenModal] = useState(false);
     const { data, error, isPending } = authClient.useSession();
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
     
-    console.log(data?.user?.id, 'users');
+    
+
+
+    const [formData, setFormData] = useState({
+        userEmail: "",
+        patientName: "",
+        phone: "",
+        date: "", 
+      });
+    
+      // ✅ session data আসার পর form set করা
+      useEffect(() => {
+        if (data?.user) {
+          setFormData({
+            userEmail: data?.user?.email || "",
+            patientName: data?.user?.name || "",
+          });
+        }
+      }, [data]);
+    
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+    
+        setFormData((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      };
+      
+    
 
     const handleSubmit =async (e) => {
         e.preventDefault();
     
-        const form = e.target;
-    
         const bookingData = {
-            patientName: form.patientName.value,
-            email: form.email.value,
-            phone: form.phone.value,
-            date: form.date.value,
-            time: form.time.value,
-            problem: form.problem.value,
+            user: data?.user?.id,
+            userEmail: formData.userEmail,
+            doctorName: doctor?.name,
+            patientName: formData.patientName,
+            gender: 'male',
+            phone: formData.phone,
+            date: formData.date,
+            time: e.target.time.value,
+            reason: e.target.reason.value
         };
     
         console.log(bookingData);
         try {
             setLoading(true);
-            await api.get(`booking/${data?.user?.id}`)
+            const response = await api.post(`/bookings`, bookingData)
+            console.log(response?.data?.payload);
             toast.success('Appoint book successfully!')
-            form.reset();
+            e.target.reset();
             setOpenModal(false);
         } catch (error) {
-            console.log(error);
+            console.log(error?.response?.data?.message);
             toast.error('Error');
         } finally {
             setLoading(false);
@@ -68,28 +99,55 @@ const BookingDoctor = ({doctor}) => {
                             <label className="block mb-2 font-medium ">
                                 Patient Name
                             </label>
-                            <input type="text" name="patientName" required placeholder="Enter your name" className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
+                            <input 
+                                type="text" 
+                                name="patientName" 
+                                value={formData.patientName}
+                                onChange={handleChange}
+                                required 
+                                placeholder="Enter your name" 
+                                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
                         </div>
                         
                         <div>
                             <label className="block mb-2 font-medium ">
                                 Email
                             </label> 
-                            <input type="email" name="email" required placeholder="Enter your email" className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
+                            <input 
+                                type="email" 
+                                name="userEmail"
+                                value={formData.userEmail}
+                                onChange={handleChange} 
+                                required 
+                                placeholder="Enter your email" 
+                                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
                         </div>
  
                         <div>
                             <label className="block mb-2 font-medium ">
                                 Phone Number
                             </label> 
-                            <input type="tel" name="phone" required placeholder="01XXXXXXXXX" className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
+                            <input 
+                                type="tel" 
+                                name="phone" 
+                                value={formData.phone}
+                                onChange={handleChange}
+                                required 
+                                placeholder="01XXXXXXXXX" 
+                                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
                         </div>
  
                         <div>
                             <label className="block mb-2 font-medium ">
                                 Appointment Date
                             </label> 
-                            <input type="date" name="date" required className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
+                            <input 
+                                type="date" 
+                                name="date"
+                                value={formData.date}
+                                onChange={handleChange} 
+                                required 
+                                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" />
                         </div>
  
                         <div className="md:col-span-2">
@@ -113,7 +171,11 @@ const BookingDoctor = ({doctor}) => {
                             <label className="block mb-2 font-medium ">
                                 Problem Description
                             </label> 
-                            <textarea name="problem" rows={4} placeholder="Write your problem..." className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" ></textarea>
+                            <textarea 
+                                name="reason" 
+                                rows={3} 
+                                placeholder="Write your problem..." 
+                                className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500" ></textarea>
                         </div>
  
                         <div className="md:col-span-2">
