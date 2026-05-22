@@ -79,26 +79,6 @@ react-icons
 swiper
 ```
 
----
-
-## ⚙️ Environment Variables
-
-### Client
-
-```env
-NEXT_PUBLIC_API_URL=your_api_url
-```
-
-### Server
-
-```env
-PORT=5000
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_secret_key
-```
-
----
-
 ## 🚀 Run Locally
 
 ### Client Side
