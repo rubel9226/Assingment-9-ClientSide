@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { authClient } from './../../../../lib/auth-client';
 import { toast } from "react-toastify";
 
-const BookingDoctor = ({doctor}) => {
+const BookingDoctor = ({doctor, token}) => {
     const [openModal, setOpenModal] = useState(false);
     const { data, error, isPending } = authClient.useSession();
     const [loading, setLoading] = useState(false);
@@ -55,10 +55,14 @@ const BookingDoctor = ({doctor}) => {
             reason: e.target.reason.value
         };
     
-        console.log(bookingData);
+        console.log(token, 'booking doctor');
         try {
             setLoading(true);
-            const response = await api.post(`/users/bookings`, bookingData)
+            const response = await api.post(`/users/bookings`, bookingData, {
+                headers: {
+                    authorization: token || '',
+                }
+            });
             console.log(response?.data?.payload);
             toast.success('Appoint book successfully!')
             e.target.reset();

@@ -120,7 +120,7 @@ export default async function DoctorDetailsPage({params}) {
             {/* Button */}
             <div className="mt-8">
 
-              <BookingDoctor doctor={doctor} />
+              <BookingDoctor doctor={doctor} token={token} />
             </div>
           </div>
         </div>
