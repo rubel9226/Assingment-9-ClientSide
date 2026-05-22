@@ -3,6 +3,7 @@ import BookingDoctor from "../Components/BookingDoctor";
 import api from "@/api/api";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
+import Footer from "@/Components/Shared/Footer";
 
 
 export const metadata = {
@@ -36,7 +37,7 @@ export default async function DoctorDetailsPage({params}) {
   return (
     <div className="min-h-screen bg-[#031e29] py-10 px-4 mt-20">
        
-      <div className="max-w-6xl bg-[#082d3b] mx-auto rounded-3xl shadow-lg overflow-hidden">
+      <div className="max-w-7xl bg-[#082d3b] mx-auto rounded-3xl shadow-lg overflow-hidden">
         {/* Top Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
           {/* Image */}
@@ -125,7 +126,7 @@ export default async function DoctorDetailsPage({params}) {
           </div>
         </div>
       </div>
-
+      <Footer />
       
     </div>
   );
