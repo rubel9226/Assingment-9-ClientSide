@@ -1,6 +1,8 @@
 import Image from "next/image";
 import BookingDoctor from "../Components/BookingDoctor";
 import api from "@/api/api";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
 
 export const metadata = {
@@ -9,25 +11,26 @@ export const metadata = {
 };
 
 export default async function DoctorDetailsPage({params}) {
-  const res = await fetch('https://assingment-9-umber.vercel.app/doctors.json');
-  const allData = await res.json();
-  const {id} = await params;
-
   let doctor = {};
+  const {id} = await params;
+  console.log(id, 'id');
+
+    const {token} = await auth.api.getToken({
+        headers: await headers(),
+    });
+    console.log(token);
+
     try {
-        const response = await api.get(`/doctors/${id}`);
+        const response = await api.get(`/doctors/${id}`, {
+          headers: {
+            authorization: token || '',
+          },
+        });
         doctor = response?.data?.payload;
     } catch (error) {
-        console.log(error?.response?.data?.message);
+        console.log(error?.response?.data?.message, 'error message');
     };
-    console.log(doctor);
-
-  // const doctor = allData.find(data => data.id === id);
-  
-
-
-
-
+    console.log(doctor, 'doctor')
   
 
   return (
@@ -86,8 +89,8 @@ export default async function DoctorDetailsPage({params}) {
                 Available Time
               </h2>
 
-              <div className="flex flex-wrap gap-3">
-                {doctor.availability.map((time, index) => (
+              {/* <div className="flex flex-wrap gap-3">
+                {doctor?.availability.map((time, index) => (
                   <span
                     key={index}
                     className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium"
@@ -95,7 +98,7 @@ export default async function DoctorDetailsPage({params}) {
                     {time}
                   </span>
                 ))}
-              </div>
+              </div> */}
             </div>
 
             {/* Description */}
