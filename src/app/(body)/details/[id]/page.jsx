@@ -89,16 +89,21 @@ export default async function DoctorDetailsPage({params}) {
                 Available Time
               </h2>
 
-              {/* <div className="flex flex-wrap gap-3">
-                {doctor?.availability.map((time, index) => (
-                  <span
-                    key={index}
-                    className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium"
-                  >
-                    {time}
-                  </span>
-                ))}
-              </div> */}
+              {
+                doctor?.availability 
+                &&
+                <div className="flex flex-wrap gap-3">
+                  {doctor?.availability.map((time, index) => (
+                    <span
+                      key={index}
+                      className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium"
+                    >
+                      {time}
+                    </span>
+                  ))}
+                </div>
+              }
+
             </div>
 
             {/* Description */}

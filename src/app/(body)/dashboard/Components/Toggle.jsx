@@ -4,7 +4,7 @@ import { useState } from "react";
 import MyBookings from "./MyBookings";
 import MyProfile from "./MyProfile";
 
-const Toggle = () => {
+const Toggle = ({token}) => {
     const [isProfile, setIsProfile] = useState(false);
     return (
         <div>
@@ -15,7 +15,7 @@ const Toggle = () => {
 
             <div className="mt-4">
                 {
-                    isProfile ? <MyProfile /> : <MyBookings />
+                    isProfile ? <MyProfile /> : <MyBookings token={token} />
                 }
             
             </div>

@@ -12,7 +12,8 @@ import Loading from '@/Components/Shared/Loading';
 import { toast } from 'react-toastify';
 import UpdateBooking from './UpdateBooking';
 
-const MyBookings = () => {
+
+const MyBookings = ({token}) => {
     const [bookings , setBookings] = useState([]);
     const [loading, setLoading] = useState(false);
     const { data, error, isPending } = authClient.useSession();
@@ -23,7 +24,11 @@ const MyBookings = () => {
     const getBookings = async () => {
         try {
             setLoading(true);
-            const response = await api.get(`/users/bookings/${data?.user?.id}`);
+            const response = await api.get(`/users/bookings/${data?.user?.id}`, {
+                headers: {
+                    authorization: token || '',
+                },
+            });
             setBookings(response.data.payload);
         } catch (error) {
             console.log(error?.response?.data?.message);
@@ -38,11 +43,19 @@ const MyBookings = () => {
         }
     }, [data?.user?.id]);
 
+    
+
     const handleDelete =async (booking) => {
+        
+        console.log(token);
         if(confirm('You are sure, delete this booking')){
             try {
                 setLoading(true);
-                await api.delete(`/users/booking/${booking?._id}`)
+                await api.delete(`/users/booking/${booking?._id}`, {
+                    headers: {
+                        authorization: token || '',
+                    },
+                })
                 toast.success(`successfully delete booking. ${booking?._id}`)
                 // getBookings();
                 const newBooking = bookings.filter(item => item._id !== booking._id);
@@ -88,7 +101,7 @@ const MyBookings = () => {
                 </div>
                 <p className={`text-sm mt-2 ${booking?.reason ? 'block' : 'hidden'}`}>Reason: {booking?.reason}</p>
                 <div className='flex gap-2 my-3'>
-                    <UpdateBooking booking={booking} getBookings={getBookings} />
+                    <UpdateBooking booking={booking} getBookings={getBookings} token={token} />
                     <div onClick={() => handleDelete(booking)} className='cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium text-xs px-3 h-8 bg-[#e63737]'><FcDeleteRow /> Delete </div>
                 </div>
             </div>))

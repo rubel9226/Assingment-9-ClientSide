@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { PiPenLight } from "react-icons/pi";
 
-const BookingDoctor = ({booking, getBookings}) => {
+const BookingDoctor = ({booking, getBookings, token}) => {
     const [openModal, setOpenModal] = useState(false);
     const [loading, setLoading] = useState(false);
     
@@ -41,6 +41,8 @@ const BookingDoctor = ({booking, getBookings}) => {
 
     const handleSubmit =async (e) => {
         e.preventDefault();
+
+        console.log(token);
     
         const bookingData = {
             patientName: formData.patientName,
@@ -53,7 +55,11 @@ const BookingDoctor = ({booking, getBookings}) => {
         try {
             setLoading(true);
 
-            const response = await api.put(`/users/booking-update/${booking._id}`, bookingData)
+            const response = await api.put(`/users/booking-update/${booking._id}`, bookingData, {
+                headers: {
+                    authorization: token || '',
+                },
+            });
             console.log(response?.data?.payload);
 
             toast.success('Appoint book updated.')

@@ -12,7 +12,7 @@ export const metadata = {
 
 
 const DashboardPage =async () => {
-    const token = await auth.api.getToken({
+    const {token} = await auth.api.getToken({
         headers: await headers(),
     });
     
@@ -25,7 +25,7 @@ const DashboardPage =async () => {
                 <div className=''>
                     <h2 className='text-3xl md:text-4xl font-bold'>Dashboard</h2>
                 </div>
-                <Toggle />
+                <Toggle token={token} />
 
             </div>
             <Footer />
