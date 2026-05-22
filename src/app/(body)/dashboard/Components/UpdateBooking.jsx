@@ -53,7 +53,7 @@ const BookingDoctor = ({booking, getBookings}) => {
         try {
             setLoading(true);
 
-            const response = await api.put(`/booking-update/${booking._id}`, bookingData)
+            const response = await api.put(`/users/booking-update/${booking._id}`, bookingData)
             console.log(response?.data?.payload);
 
             toast.success('Appoint book updated.')

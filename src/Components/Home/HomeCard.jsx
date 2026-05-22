@@ -3,12 +3,21 @@ import Link from 'next/link';
 import React from 'react';
 import { IoLocationOutline } from "react-icons/io5";
 import { IoMdStopwatch } from "react-icons/io";
+import { FaStar } from 'react-icons/fa6';
+import api from '@/api/api';
 
 const HomeCard =async () => {
-    const res = await fetch('https://assingment-9-umber.vercel.app/doctors.json');
-    const allData = await res.json();
-    const threeData = allData.slice(0, 3);
-    console.log(allData)
+    let doctors = [];
+
+    try {
+        const response = await api.get('/doctors');
+        doctors = response?.data?.payload;
+    } catch (error) {
+        console.log(error?.response?.data?.message);
+    };
+    
+    const threeData = doctors.sort((a, b) => b.rating - a.rating).slice(0, 3);
+    
     return (
         <div className='pt-20 w-11/12 mx-auto lg:w-full mb-5'>
             <div className='text-center'>
@@ -19,7 +28,7 @@ const HomeCard =async () => {
             <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10'>
                 
                 {
-                    threeData.map((doctor, index) => <div key={index} className='rounded-xl bg-[#031e29] transform duration-500 hover:-translate-y-1 hover:scale-102 hover:shadow-2xl shadow-cyan-500/35'>
+                    threeData.map((doctor, index) => <div key={index} className='rounded-xl relative bg-[#031e29] transform duration-500 hover:-translate-y-1 hover:scale-102 hover:shadow-2xl shadow-cyan-500/35'>
                     <div className='rounded-t-2xl w-full aspect-[2] overflow-hidden'>
                         {console.log(doctor.id)}
                         <Image 
@@ -53,6 +62,7 @@ const HomeCard =async () => {
                             <Link href={`details/${doctor?.id}`} className='bg-[#00C7C5] text-[12px] flex items-center gap-1.5 text-black font-medium px-3 h-8 rounded-xl ' >View Details</Link>
                         </div>
                     </div>
+                    <div className='flex bg-black/80 hover:bg-cyan-600/80 px-3 py-1 rounded-full absolute top-4 right-3 gap-1 items-center text-sm'>{doctor?.rating}<FaStar className='text-amber-400' /></div>
                 </div>)
                 }
                 

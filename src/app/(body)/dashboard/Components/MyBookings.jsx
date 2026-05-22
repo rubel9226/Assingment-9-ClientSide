@@ -23,7 +23,7 @@ const MyBookings = () => {
     const getBookings = async () => {
         try {
             setLoading(true);
-            const response = await api.get(`/bookings/${data?.user?.id}`);
+            const response = await api.get(`/users/bookings/${data?.user?.id}`);
             setBookings(response.data.payload);
         } catch (error) {
             console.log(error?.response?.data?.message);
@@ -42,7 +42,7 @@ const MyBookings = () => {
         if(confirm('You are sure, delete this booking')){
             try {
                 setLoading(true);
-                await api.delete(`/booking/${booking?._id}`)
+                await api.delete(`/users/booking/${booking?._id}`)
                 toast.success(`successfully delete booking. ${booking?._id}`)
                 // getBookings();
                 const newBooking = bookings.filter(item => item._id !== booking._id);

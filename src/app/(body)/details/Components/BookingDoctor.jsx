@@ -58,7 +58,7 @@ const BookingDoctor = ({doctor}) => {
         console.log(bookingData);
         try {
             setLoading(true);
-            const response = await api.post(`/bookings`, bookingData)
+            const response = await api.post(`/users/bookings`, bookingData)
             console.log(response?.data?.payload);
             toast.success('Appoint book successfully!')
             e.target.reset();

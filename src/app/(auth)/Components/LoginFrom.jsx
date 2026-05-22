@@ -1,6 +1,6 @@
 "use client";
 
-import api from "@/api/api";
+
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { FaGoogle, FaEnvelope, FaLock } from "react-icons/fa";

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import BookingDoctor from "../Components/BookingDoctor";
+import api from "@/api/api";
+
 
 export const metadata = {
   title: "DocAppoint -- Book Trusted Doctor",
@@ -11,7 +13,17 @@ export default async function DoctorDetailsPage({params}) {
   const allData = await res.json();
   const {id} = await params;
 
-  const doctor = allData.find(data => data.id === id);
+  let doctor = {};
+    try {
+        const response = await api.get(`/doctors/${id}`);
+        doctor = response?.data?.payload;
+    } catch (error) {
+        console.log(error?.response?.data?.message);
+    };
+    console.log(doctor);
+
+  // const doctor = allData.find(data => data.id === id);
+  
 
 
 

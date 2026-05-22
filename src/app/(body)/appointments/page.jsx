@@ -3,7 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { IoMdStopwatch } from 'react-icons/io';
-import { IoLocationOutline } from 'react-icons/io5';
+import { IoLocationOutline } from 'react-icons/io5';;
+import { FaStar } from 'react-icons/fa6';
+import api from '@/api/api';
 
 export const metadata = {
   title: "All AppointMents -- DocAppoint",
@@ -11,12 +13,18 @@ export const metadata = {
 };
 
 const AppointMentsPage =async () => {
-    const res = await fetch('https://assingment-9-umber.vercel.app/doctors.json');
-    const allData = await res.json();
+    let doctors = [];
+    try {
+        const response = await api.get('/doctors');
+        doctors = response?.data?.payload;
+    } catch (error) {
+        console.log(error?.response?.data?.message);
+    };
+    console.log(doctors);
 
     return (
         <div>
-            <div className='mt-16 w-11/12 mx-auto py-12 max-w-7xl mx-auto'>
+            <div className='mt-16 w-11/12 py-12 max-w-7xl mx-auto'>
                 <div className='text-center'>
                     <h2 className='text-3xl md:text-4xl font-bold'>All Appointments</h2>
                     <p className='text-muted mt-2'>Built around your health and your time</p>
@@ -24,8 +32,8 @@ const AppointMentsPage =async () => {
 
                 <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10'>
                     {
-                        allData.map((doctor, index) => (
-                            <div key={index} className='rounded-xl bg-[#031e29] transform duration-500 hover:-translate-y-1 hover:scale-102 hover:shadow-2xl shadow-cyan-500/35'>
+                        doctors.map((doctor, index) => (
+                            <div key={index} className='rounded-xl bg-[#031e29] transform duration-500 hover:-translate-y-1 hover:scale-102 hover:shadow-2xl shadow-cyan-500/35 relative'>
                                 <div className='rounded-t-2xl w-full aspect-[2] overflow-hidden'>
                                     {console.log(doctor?.id)}
                                     <Image 
@@ -59,6 +67,8 @@ const AppointMentsPage =async () => {
                                         <Link href={`details/${doctor?.id}`} className='bg-[#00C7C5] text-[12px] flex items-center gap-1.5 text-black font-medium px-3 h-8 rounded-xl ' >View Details</Link>
                                     </div>
                                 </div>
+                                <div className='flex bg-black/80 hover:bg-cyan-600/80 px-3 py-1 rounded-full absolute top-4 right-3 gap-1 items-center text-sm'>{doctor?.rating}<FaStar className='text-amber-400' /></div>
+    
                             </div>
                         ))
                     }
